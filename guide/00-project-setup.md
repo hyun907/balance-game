@@ -358,7 +358,40 @@ export default nextConfig;
 
 `/api`로 시작하는 요청을 Next.js가 Django로 전달하는 설정입니다. 브라우저 입장에서는 모든 요청이 `localhost:3000`으로 가는 것처럼 보이기 때문에, CORS 설정이 필요 없고 로그인 쿠키도 그대로 동작합니다.
 
-첫 화면에서 `/api/health`를 호출해 결과를 표시합니다. 호출 주소는 Django 주소가 아니라 `/api/health` 상대 경로입니다.
+이제 첫 화면에서 `/api/health`를 호출해 결과를 표시합니다. 브라우저 → Next.js → Django 흐름이 실제로 이어졌는지 눈으로 확인하는 단계입니다.
+
+`frontend/src/app/page.tsx`의 내용을 전부 지우고 아래 코드로 바꿉니다.
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+
+export default function Home() {
+  const [status, setStatus] = useState("확인 중...");
+
+  useEffect(() => {
+    fetch("/api/health")
+      .then((res) => res.json())
+      .then((data) => setStatus(data.status))
+      .catch(() => setStatus("연결 실패"));
+  }, []);
+
+  return <main>Django 상태: {status}</main>;
+}
+```
+
+| 코드 | 뜻 |
+|---|---|
+| `"use client"` | 이 컴포넌트를 브라우저에서도 실행합니다. `useState`와 `useEffect`를 쓰려면 필요합니다. |
+| `useState("확인 중...")` | 응답이 오기 전에 보여 줄 글자입니다. |
+| `fetch("/api/health")` | 화면이 열린 뒤 API를 호출합니다. |
+| `setStatus(data.status)` | Django가 보낸 `{"status": "ok"}`에서 `ok`를 꺼내 화면에 넣습니다. |
+| `.catch(...)` | 요청 자체가 실패하면 `연결 실패`를 표시합니다. |
+
+호출 주소에 `http://127.0.0.1:8000`을 쓰지 않는 것이 핵심입니다. `/api/health` 상대 경로로 부르면 브라우저는 `localhost:3000`으로 요청하고, 앞에서 만든 `rewrites`가 Django로 전달합니다. 그래서 CORS 오류가 나지 않습니다.
+
+화면에 `Django 상태: ok`가 나오면 성공입니다. 이 코드는 연결 확인용이라 나중에 실제 화면을 만들 때 지웁니다.
 
 ## 왜 끝 슬래시를 쓰지 않나
 

@@ -70,7 +70,7 @@ balance-game/
 ## 진도
 챕터별 진행 방법은 [가이드북](guide/README.md)에 있습니다.
 
-- [ ] [00. 프로젝트 준비](#00-프로젝트-준비)
+- [x] [00. 프로젝트 준비](#00-프로젝트-준비)
 - [ ] [01. 회원가입과 로그인](#01-회원가입과-로그인)
 - [ ] [02. 질문 등록과 조회](#02-질문-등록과-조회)
 - [ ] [03. 투표와 결과](#03-투표와-결과)
@@ -85,16 +85,16 @@ balance-game/
 ### 00. 프로젝트 준비
 **목표:** Django가 로컬 PostgreSQL에 연결되고, Next.js에서 Django API를 호출할 수 있는 상태를 만든다.
 
-- [ ] `backend/`, `frontend/` 폴더 분리
-- [ ] 가상환경을 만들고 패키지를 `requirements.txt`로 관리
-- [ ] Django 프로젝트 생성, Django REST Framework 설치
-- [ ] PostgreSQL에 전용 유저와 데이터베이스 생성 (테스트용 `CREATEDB` 권한 포함)
-- [ ] `SECRET_KEY`, DB 접속 정보, `CSRF_TRUSTED_ORIGINS`를 `.env`로 분리
-- [ ] `.env.example` 작성, `.gitignore` 설정
-- [ ] 첫 `migrate` 전에 커스텀 유저 모델 설정
-- [ ] TypeScript로 Next.js 프로젝트 생성
-- [ ] Next.js `rewrites`로 `/api/*` 요청을 Django에 전달
-- [ ] `GET /api/health`를 만들고 Next.js 화면에서 호출
+- [x] `backend/`, `frontend/` 폴더 분리
+- [x] 가상환경을 만들고 패키지를 `requirements.txt`로 관리
+- [x] Django 프로젝트 생성, Django REST Framework 설치
+- [x] PostgreSQL에 전용 유저와 데이터베이스 생성 (테스트용 `CREATEDB` 권한 포함)
+- [x] `SECRET_KEY`, DB 접속 정보, `CSRF_TRUSTED_ORIGINS`를 `.env`로 분리
+- [x] `.env.example` 작성, `.gitignore` 설정
+- [x] 첫 `migrate` 전에 커스텀 유저 모델 설정
+- [x] TypeScript로 Next.js 프로젝트 생성
+- [x] Next.js `rewrites`로 `/api/*` 요청을 Django에 전달
+- [x] `GET /api/health`를 만들고 Next.js 화면에서 호출
 
 **완료 기준**
 - `runserver`와 Next.js 개발 서버가 함께 정상 실행된다.

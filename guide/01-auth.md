@@ -47,6 +47,8 @@ class CsrfView(APIView):
         return Response(status=204)
 ```
 
+뷰는 URL에 연결해야 동작합니다. `accounts/urls.py`를 만들어 `path("csrf", CsrfView.as_view())`를 등록하고, `config/urls.py`에 `path("api/auth/", include("accounts.urls"))`를 추가합니다. 이후 API도 같은 방식으로 등록합니다.
+
 ## 2. 로그인 API
 
 DRF의 세션 인증은 **로그인한 사용자의 요청만** CSRF를 검사합니다. 로그인과 회원가입 요청은 비로그인 상태이므로 검사가 빠지고, 다른 사이트가 사용자를 공격자 계정으로 로그인시키는 공격에 열립니다. 그래서 직접 적용합니다.
